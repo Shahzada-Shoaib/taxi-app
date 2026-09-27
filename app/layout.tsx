@@ -13,14 +13,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BCM — Premium Rides, Personal Service",
-  description: "Book safe, comfortable and premium city rides with BCM.",
+  title: "BCM — Premium UK Taxi & Airport Transfers",
+  description: "Discover premium UK taxi journeys, airport transfers and chauffeur hire with BCM. Plan your trip using a UK postcode and view example fares in GBP.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="en-GB"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>

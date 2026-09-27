@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { FormEvent, useState } from "react";
+import RoadBanner from "./road-banner";
 
 type IconName =
   | "arrow"
@@ -50,10 +51,16 @@ function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   );
 }
 
+const pounds = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+
+// Illustrative design prices, pending the operator's confirmed UK tariff.
 const services = [
-  { icon: "car" as const, number: "01", title: "City rides", text: "Your everyday commute, upgraded with clean cars and professional drivers." },
-  { icon: "plane" as const, number: "02", title: "Airport transfer", text: "On-time pickups with flight tracking and complimentary waiting time." },
-  { icon: "clock" as const, number: "03", title: "Hourly hire", text: "Keep a premium car and chauffeur with you, for as long as you need." },
+  { icon: "car" as const, number: "01", title: "Local journeys", text: "From your daily commute to the railway station, travel in comfort with a professional driver.", exampleFare: 18, unit: "/ journey" },
+  { icon: "plane" as const, number: "02", title: "Airport transfers", text: "Start or finish your holiday with a comfortable transfer between your door and the terminal.", exampleFare: 65, unit: "/ transfer" },
+  { icon: "clock" as const, number: "03", title: "Chauffeur hire", text: "An executive saloon and chauffeur for business meetings, special occasions or a day in town.", exampleFare: 45, unit: "/ hour" },
 ];
 
 export default function Home() {
@@ -63,7 +70,7 @@ export default function Home() {
 
   function submitRide(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMessage("Perfect — we’re checking the best car for your route.");
+    setMessage("Booking preview only — no journey has been booked. Example fares are shown in GBP (£).");
   }
 
   return (
@@ -93,9 +100,9 @@ export default function Home() {
 
         <div className="hero-grid wrap">
           <div className="hero-copy">
-            <div className="eyebrow"><span /> Premium rides. Personal service.</div>
+            <div className="eyebrow"><span /> UK journeys. Personal service.</div>
             <h1>Every ride should feel <em>first class.</em></h1>
-            <p>City travel, reimagined. Enjoy a smooth, safe and beautifully simple journey every time you ride with BCM.</p>
+            <p>Your everyday journey, reimagined. From local trips to airport transfers, enjoy premium taxi travel in the UK with BCM.</p>
             <div className="hero-actions">
               <a href="#book" className="button button-gold">Book your ride <Icon name="arrow" size={18} /></a>
               <a href="#services" className="text-link"><span className="play"><Icon name="car" size={17} /></span> Explore our fleet</a>
@@ -126,10 +133,10 @@ export default function Home() {
               <button type="button" className={rideType === "now" ? "active" : ""} onClick={() => setRideType("now")}>Ride now</button>
               <button type="button" className={rideType === "later" ? "active" : ""} onClick={() => setRideType("later")}>Schedule</button>
             </div>
-            <label className="field"><span className="field-icon pickup"><Icon name="location" size={19} /></span><span><small>Pickup location</small><input required aria-label="Pickup location" placeholder="Where are you now?" /></span></label>
+            <label className="field"><span className="field-icon pickup"><Icon name="location" size={19} /></span><span><small>Pick-up location</small><input required aria-label="Pick-up address or UK postcode" placeholder="Address or UK postcode" /></span></label>
             <div className="field-divider" />
-            <label className="field"><span className="field-icon destination"><Icon name="location" size={19} /></span><span><small>Destination</small><input required aria-label="Destination" placeholder="Where are you going?" /></span></label>
-            {rideType === "later" && <label className="field schedule-field"><span className="field-icon"><Icon name="calendar" size={19} /></span><span><small>Pickup time</small><input required aria-label="Pickup time" type="datetime-local" /></span></label>}
+            <label className="field"><span className="field-icon destination"><Icon name="location" size={19} /></span><span><small>Destination</small><input required aria-label="Destination address, airport or station" placeholder="Address, airport or station" /></span></label>
+            {rideType === "later" && <label className="field schedule-field"><span className="field-icon"><Icon name="calendar" size={19} /></span><span><small>Pick-up time (UK local time)</small><input required aria-label="Pick-up time in UK local time" type="datetime-local" /></span></label>}
             <button className="search-button" type="submit">Find a ride <Icon name="arrow" size={18} /></button>
           </form>
           {message && <p className="form-message" role="status"><Icon name="check" size={17} /> {message}</p>}
@@ -140,10 +147,12 @@ export default function Home() {
         <div className="wrap stats-grid">
           <div><strong>12K+</strong><span>Happy riders</span></div>
           <div><strong>350+</strong><span>Verified drivers</span></div>
-          <div><strong>99.2%</strong><span>On-time pickups</span></div>
+          <div><strong>99.2%</strong><span>On-time pick-ups</span></div>
           <div><strong>24/7</strong><span>Customer care</span></div>
         </div>
       </section>
+
+      <RoadBanner />
 
       <section className="section services" id="services">
         <div className="wrap">
@@ -157,10 +166,15 @@ export default function Home() {
                 <div className="service-top"><span className="service-icon"><Icon name={service.icon} size={24} /></span><small>{service.number}</small></div>
                 <h3>{service.title}</h3>
                 <p>{service.text}</p>
+                <div className="service-fare">
+                  <small>Example fare</small>
+                  <div><strong>{pounds.format(service.exampleFare)}</strong><span>{service.unit}</span></div>
+                </div>
                 <a href="#book" aria-label={`Book ${service.title}`}>Book this service <Icon name="arrow" size={17} /></a>
               </article>
             ))}
           </div>
+          <p className="fare-note">All prices are in GBP (£). These are illustrative fares, not live quotes. Your final fare will depend on the route, vehicle, waiting time and any airport charges.</p>
         </div>
       </section>
 
@@ -172,9 +186,9 @@ export default function Home() {
             <div className="phone-card">
               <div className="phone-top"><small>Your driver is arriving</small><strong>2 min</strong></div>
               <div className="mini-map"><span className="street street-one" /><span className="street street-two" /><span className="street street-three" /><span className="mini-car"><Icon name="car" size={18} /></span></div>
-              <div className="driver-row"><span className="driver-avatar">AR</span><span><strong>Ahmed R.</strong><small>Mercedes E-Class · LEA 204</small></span><span className="rating"><Icon name="star" size={13} /> 4.9</span></div>
+              <div className="driver-row"><span className="driver-avatar">AR</span><span><strong>Ahmed R.</strong><small>Executive saloon · 4 passengers</small></span><span className="rating"><Icon name="star" size={13} /> 4.9</span></div>
             </div>
-            <div className="art-chip chip-price"><small>Estimated fare</small><strong>Rs. 1,250</strong></div>
+            <div className="art-chip chip-price"><small>Example fare · GBP</small><strong>{pounds.format(24.5)}</strong></div>
             <div className="art-chip chip-safe"><Icon name="shield" size={18} /><span><strong>Ride protected</strong><small>Live trip monitoring</small></span></div>
           </div>
           <div className="experience-copy">
@@ -183,7 +197,7 @@ export default function Home() {
             <p>We take care of the little things that turn an ordinary taxi ride into a service you look forward to.</p>
             <div className="feature-list">
               <div><span><Icon name="shield" size={21} /></span><div><strong>Your safety comes first</strong><p>Background-checked drivers, live tracking and round-the-clock support.</p></div></div>
-              <div><span><Icon name="wallet" size={21} /></span><div><strong>Clear, upfront pricing</strong><p>See your fare before you book. No last-minute surprises.</p></div></div>
+              <div><span><Icon name="wallet" size={21} /></span><div><strong>Clear pricing in pounds</strong><p>Check your fare in GBP (£), including any applicable charges, before confirming your journey.</p></div></div>
               <div><span><Icon name="star" size={21} /></span><div><strong>A consistently premium ride</strong><p>Immaculate vehicles and drivers trained to our service standard.</p></div></div>
             </div>
             <a className="button button-dark" href="#book">Experience BCM <Icon name="arrow" size={18} /></a>
@@ -198,7 +212,7 @@ export default function Home() {
             <h2>Wherever you’re going,<br /><em>we make it effortless.</em></h2>
           </div>
           <div className="steps-grid">
-            <article><span className="step-number">01</span><div className="step-icon"><Icon name="location" size={25} /></div><h3>Tell us where</h3><p>Choose your pickup point and destination in seconds.</p></article>
+            <article><span className="step-number">01</span><div className="step-icon"><Icon name="location" size={25} /></div><h3>Tell us where</h3><p>Enter your UK postcode or address and choose your destination.</p></article>
             <article><span className="step-number">02</span><div className="step-icon"><Icon name="car" size={25} /></div><h3>Choose your ride</h3><p>Select the car that suits your moment and your style.</p></article>
             <article><span className="step-number">03</span><div className="step-icon"><Icon name="route" size={25} /></div><h3>Enjoy the journey</h3><p>Track your driver, settle in and arrive beautifully.</p></article>
           </div>
@@ -221,12 +235,12 @@ export default function Home() {
 
       <footer id="contact">
         <div className="wrap footer-grid">
-          <div className="footer-brand"><Image src="/logo.png" alt="BCM" width={140} height={76} /><p>Premium city rides, thoughtfully delivered.</p><div className="socials"><a href="#" aria-label="Instagram"><Icon name="instagram" size={17} /></a><a href="#" aria-label="Facebook"><Icon name="facebook" size={17} /></a></div></div>
+          <div className="footer-brand"><Image src="/logo.png" alt="BCM" width={140} height={76} /><p>Premium UK journeys, thoughtfully delivered.</p><div className="socials"><a href="#" aria-label="Instagram"><Icon name="instagram" size={17} /></a><a href="#" aria-label="Facebook"><Icon name="facebook" size={17} /></a></div></div>
           <div className="footer-column"><strong>Company</strong><a href="#why-bcm">About BCM</a><a href="#services">Services</a><a href="#why-bcm">Safety</a><a href="#">Drive with us</a></div>
           <div className="footer-column"><strong>Support</strong><a href="#">Help centre</a><a href="#">Terms of service</a><a href="#">Privacy policy</a></div>
-          <div className="footer-column contact-column"><strong>Get in touch</strong><a href="tel:+923001234567"><Icon name="phone" size={16} /> +92 300 123 4567</a><a href="mailto:hello@bcmrides.com"><Icon name="mail" size={16} /> hello@bcmrides.com</a></div>
+          <div className="footer-column contact-column"><strong>Get in touch</strong><span className="contact-pending"><Icon name="phone" size={16} /> UK phone number coming soon</span><span className="contact-pending"><Icon name="mail" size={16} /> Contact email coming soon</span></div>
         </div>
-        <div className="wrap footer-bottom"><span>© 2026 BCM. All rights reserved.</span><span>Made for better journeys.</span></div>
+        <div className="wrap footer-bottom"><span>© 2026 BCM. All rights reserved.</span><span>United Kingdom · English (UK) · GBP (£)</span></div>
       </footer>
     </main>
   );
