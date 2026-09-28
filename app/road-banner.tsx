@@ -2,7 +2,7 @@ import styles from "./road-banner.module.css";
 
 export default function RoadBanner() {
   return (
-    <section className={styles.banner} aria-labelledby="road-banner-title">
+    <section className={styles.banner} data-motion-scene aria-labelledby="road-banner-title">
       <div className={styles.lanes} aria-hidden="true" />
       <div className={styles.crossing} aria-hidden="true" />
       <div className={styles.direction} aria-hidden="true">→</div>

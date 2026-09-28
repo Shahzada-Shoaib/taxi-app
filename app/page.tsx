@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import RoadBanner from "./road-banner";
+import BookingForm from "./booking-form";
+import { usePageMotion } from "./use-page-motion";
 
 type IconName =
   | "arrow"
@@ -65,27 +67,28 @@ const services = [
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [rideType, setRideType] = useState<"now" | "later">("now");
-  const [message, setMessage] = useState("");
-
-  function submitRide(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setMessage("Booking preview only — no journey has been booked. Example fares are shown in GBP (£).");
-  }
+  const [selectedService, setSelectedService] = useState(0);
+  const [motionPaused, setMotionPaused] = useState(false);
+  const rootRef = usePageMotion(motionPaused);
 
   return (
-    <main className="site-shell">
+    <main ref={rootRef} className="site-shell" data-motion-paused={motionPaused}>
+      <div className="scroll-progress" aria-hidden="true" />
+      <div className="floating-controls">
+        <button type="button" className="motion-toggle" aria-pressed={motionPaused} onClick={() => setMotionPaused(!motionPaused)} aria-label={motionPaused ? "Resume animations" : "Pause animations"}><span aria-hidden="true">{motionPaused ? "▶" : "Ⅱ"}</span><span>{motionPaused ? "Motion off" : "Motion on"}</span></button>
+        <a className="back-to-top" href="#home" aria-label="Back to top">↑</a>
+      </div>
       <section className="hero" id="home">
         <nav className="nav wrap" aria-label="Main navigation">
           <a className="brand" href="#home" aria-label="BCM home">
             <Image src="/logo.png" alt="BCM" width={132} height={72} priority />
           </a>
 
-          <button className="menu-button" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu">
+          <button className="menu-button" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-controls="main-navigation-links" aria-expanded={menuOpen} aria-label="Toggle menu">
             <Icon name={menuOpen ? "x" : "menu"} />
           </button>
 
-          <div className={`nav-links ${menuOpen ? "is-open" : ""}`}>
+          <div id="main-navigation-links" className={`nav-links ${menuOpen ? "is-open" : ""}`} onKeyDown={event => { if (event.key === "Escape") { setMenuOpen(false); rootRef.current?.querySelector<HTMLButtonElement>(".menu-button")?.focus(); } }}>
             <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
             <a href="#why-bcm" onClick={() => setMenuOpen(false)}>Why BCM</a>
             <a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a>
@@ -99,7 +102,7 @@ export default function Home() {
         <div className="hero-glow hero-glow-two" />
 
         <div className="hero-grid wrap">
-          <div className="hero-copy">
+          <div className="hero-copy" data-reveal>
             <div className="eyebrow"><span /> UK journeys. Personal service.</div>
             <h1>Every ride should feel <em>first class.</em></h1>
             <p>Your everyday journey, reimagined. From local trips to airport transfers, enjoy premium taxi travel in the UK with BCM.</p>
@@ -113,7 +116,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="hero-visual" aria-label="BCM premium car service illustration">
+          <div className="hero-visual" data-motion-scene aria-label="BCM premium car service illustration">
             <div className="orbit orbit-one" />
             <div className="orbit orbit-two" />
             <div className="visual-badge visual-badge-top"><span><Icon name="shield" size={17} /></span><div><strong>Verified drivers</strong><small>Safe on every trip</small></div></div>
@@ -127,24 +130,11 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="booking-wrap wrap" id="book">
-          <form className="booking-card" onSubmit={submitRide}>
-            <div className="ride-toggle" role="group" aria-label="Ride timing">
-              <button type="button" className={rideType === "now" ? "active" : ""} onClick={() => setRideType("now")}>Ride now</button>
-              <button type="button" className={rideType === "later" ? "active" : ""} onClick={() => setRideType("later")}>Schedule</button>
-            </div>
-            <label className="field"><span className="field-icon pickup"><Icon name="location" size={19} /></span><span><small>Pick-up location</small><input required aria-label="Pick-up address or UK postcode" placeholder="Address or UK postcode" /></span></label>
-            <div className="field-divider" />
-            <label className="field"><span className="field-icon destination"><Icon name="location" size={19} /></span><span><small>Destination</small><input required aria-label="Destination address, airport or station" placeholder="Address, airport or station" /></span></label>
-            {rideType === "later" && <label className="field schedule-field"><span className="field-icon"><Icon name="calendar" size={19} /></span><span><small>Pick-up time (UK local time)</small><input required aria-label="Pick-up time in UK local time" type="datetime-local" /></span></label>}
-            <button className="search-button" type="submit">Find a ride <Icon name="arrow" size={18} /></button>
-          </form>
-          {message && <p className="form-message" role="status"><Icon name="check" size={17} /> {message}</p>}
-        </div>
+        <BookingForm services={services} selectedService={selectedService} onServiceChange={setSelectedService} />
       </section>
 
       <section className="trust-strip" aria-label="BCM achievements">
-        <div className="wrap stats-grid">
+        <div className="wrap stats-grid" data-reveal>
           <div><strong>12K+</strong><span>Happy riders</span></div>
           <div><strong>350+</strong><span>Verified drivers</span></div>
           <div><strong>99.2%</strong><span>On-time pick-ups</span></div>
@@ -156,13 +146,13 @@ export default function Home() {
 
       <section className="section services" id="services">
         <div className="wrap">
-          <div className="section-heading split-heading">
+          <div className="section-heading split-heading" data-reveal>
             <div><div className="eyebrow dark"><span /> Our services</div><h2>More than a ride.<br />It’s your time, <em>respected.</em></h2></div>
             <p>From a quick trip across town to a seamless airport transfer, every BCM service is built around your comfort.</p>
           </div>
           <div className="service-grid">
-            {services.map((service) => (
-              <article className="service-card" key={service.title}>
+            {services.map((service, index) => (
+              <article className="service-card" key={service.title} data-reveal data-delay={index * 100}>
                 <div className="service-top"><span className="service-icon"><Icon name={service.icon} size={24} /></span><small>{service.number}</small></div>
                 <h3>{service.title}</h3>
                 <p>{service.text}</p>
@@ -170,7 +160,7 @@ export default function Home() {
                   <small>Example fare</small>
                   <div><strong>{pounds.format(service.exampleFare)}</strong><span>{service.unit}</span></div>
                 </div>
-                <a href="#book" aria-label={`Book ${service.title}`}>Book this service <Icon name="arrow" size={17} /></a>
+                <a href="#book" onClick={() => setSelectedService(index)} aria-label={`Book ${service.title}`}>Book this service <Icon name="arrow" size={17} /></a>
               </article>
             ))}
           </div>
@@ -180,7 +170,7 @@ export default function Home() {
 
       <section className="section experience" id="why-bcm">
         <div className="wrap experience-grid">
-          <div className="experience-art">
+          <div className="experience-art" data-reveal data-motion-scene>
             <div className="map-grid" />
             <div className="route-line"><span className="route-dot start" /><span className="route-dot end" /></div>
             <div className="phone-card">
@@ -191,7 +181,7 @@ export default function Home() {
             <div className="art-chip chip-price"><small>Example fare · GBP</small><strong>{pounds.format(24.5)}</strong></div>
             <div className="art-chip chip-safe"><Icon name="shield" size={18} /><span><strong>Ride protected</strong><small>Live trip monitoring</small></span></div>
           </div>
-          <div className="experience-copy">
+          <div className="experience-copy" data-reveal data-delay="120">
             <div className="eyebrow dark"><span /> Why choose BCM</div>
             <h2>Quiet luxury.<br /><em>Thoughtful details.</em></h2>
             <p>We take care of the little things that turn an ordinary taxi ride into a service you look forward to.</p>
@@ -207,11 +197,11 @@ export default function Home() {
 
       <section className="section steps" id="how-it-works">
         <div className="wrap">
-          <div className="section-heading centered">
+          <div className="section-heading centered" data-reveal>
             <div className="eyebrow dark"><span /> Simple by design</div>
             <h2>Wherever you’re going,<br /><em>we make it effortless.</em></h2>
           </div>
-          <div className="steps-grid">
+          <div className="steps-grid" data-reveal>
             <article><span className="step-number">01</span><div className="step-icon"><Icon name="location" size={25} /></div><h3>Tell us where</h3><p>Enter your UK postcode or address and choose your destination.</p></article>
             <article><span className="step-number">02</span><div className="step-icon"><Icon name="car" size={25} /></div><h3>Choose your ride</h3><p>Select the car that suits your moment and your style.</p></article>
             <article><span className="step-number">03</span><div className="step-icon"><Icon name="route" size={25} /></div><h3>Enjoy the journey</h3><p>Track your driver, settle in and arrive beautifully.</p></article>
@@ -220,14 +210,14 @@ export default function Home() {
       </section>
 
       <section className="quote-section">
-        <div className="wrap quote-grid">
+        <div className="wrap quote-grid" data-reveal>
           <div className="quote-copy"><div className="quote-mark">“</div><blockquote>BCM is the only ride service that feels reliable enough for my client meetings—and comfortable enough for my family.</blockquote><div className="quote-author"><span>HZ</span><div><strong>Hamza Zafar</strong><small>BCM rider since 2024</small></div></div></div>
           <div className="quote-panel"><div className="quote-panel-inner"><span className="tiny-label">The BCM standard</span><strong>Arrive calm.<br />Arrive on time.<br /><em>Arrive in style.</em></strong><a href="#book">Take your first ride <Icon name="arrow" size={17} /></a></div></div>
         </div>
       </section>
 
       <section className="cta-section">
-        <div className="wrap cta-inner">
+        <div className="wrap cta-inner" data-reveal>
           <div><div className="eyebrow"><span /> Your ride is ready</div><h2>Move better with BCM.</h2><p>Premium cars. Professional drivers. One beautifully simple ride.</p></div>
           <a className="button button-gold" href="#book">Book a ride now <Icon name="arrow" size={18} /></a>
         </div>

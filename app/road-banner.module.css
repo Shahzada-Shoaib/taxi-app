@@ -30,11 +30,12 @@
 
 .lanes {
   position: absolute;
-  inset: auto 0 28px;
+  inset: auto -112px 28px;
   height: 3px;
   opacity: .45;
   background: repeating-linear-gradient(90deg, #fffdf8 0 62px, transparent 62px 112px);
   z-index: -1;
+  animation: road-travel 4s linear infinite;
 }
 
 .crossing {
@@ -58,7 +59,11 @@
   font: 700 84px/1 Arial, sans-serif;
   opacity: .6;
   z-index: -1;
+  animation: road-arrow 2.8s ease-in-out infinite;
 }
+
+@keyframes road-travel { to { transform: translateX(112px); } }
+@keyframes road-arrow { 0%, 100% { translate: 0 0; opacity: .4; } 50% { translate: 8px 0; opacity: .8; } }
 
 .content {
   height: 100%;
