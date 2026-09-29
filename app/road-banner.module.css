@@ -89,6 +89,7 @@
   font-weight: 850;
   letter-spacing: .08em;
   box-shadow: 0 8px 22px #0005;
+  animation: taxi-sign-glow 2.8s ease-in-out infinite;
 }
 
 .copy p {
@@ -124,6 +125,11 @@
   .crossing { left: auto; right: 5%; width: 66px; opacity: .7; }
   .direction { display: none; }
   .lanes { bottom: 22px; opacity: .25; }
+}
+
+@keyframes taxi-sign-glow {
+  0%, 100% { box-shadow: 0 8px 22px #0005, 0 0 0 #febb0a00; }
+  50% { box-shadow: 0 8px 22px #0005, 0 0 22px #febb0a55; }
 }
 
 @media (max-width: 360px) {

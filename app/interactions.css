@@ -31,7 +31,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .step-icon { transition: transform .35s, background .35s; }
 .steps-grid article:hover .step-icon { transform: rotate(45deg) translate(-4px, -4px); background: #febb0a25; }
 
-@keyframes gentle-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+@keyframes gentle-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
 @keyframes soft-pulse { 0%, 100% { opacity: .4; scale: .98; } 50% { opacity: .85; scale: 1.04; } }
 @keyframes map-drive { 0%, 100% { translate: -26px 26px; } 50% { translate: 24px -24px; } }
 .car-stage img { animation: gentle-float 7s ease-in-out infinite; }

@@ -1,6 +1,6 @@
 // Add the client's confirmed contact details here. Never use a dummy number.
 export const contact = {
-  email: "shahzada.shoaib011@gmail.com",
+  email: "blackcountryminibus@gmail.com",
   mobile: "+44 7735 090685",
   whatsapp: "", // International format, if different from mobile.
   facebook: "", // Full Facebook page URL.

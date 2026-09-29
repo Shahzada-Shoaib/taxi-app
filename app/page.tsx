@@ -74,11 +74,10 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(0);
   const [selectedVehicle, setSelectedVehicle] = useState("");
-  const [motionPaused, setMotionPaused] = useState(false);
-  const rootRef = usePageMotion(motionPaused);
+  const rootRef = usePageMotion(false);
 
   return (
-    <main ref={rootRef} className="site-shell" data-motion-paused={motionPaused}>
+    <main ref={rootRef} className="site-shell" data-motion-paused="false">
       <div className="scroll-progress" aria-hidden="true" />
       <div className="top-contact-bar">
         <div className="wrap top-contact-inner">
@@ -256,17 +255,18 @@ export default function Home() {
       <ContactSection />
 
       <footer>
-        <div className="wrap footer-controls">
-          <button type="button" className="motion-toggle" aria-pressed={motionPaused} onClick={() => setMotionPaused(!motionPaused)}>{motionPaused ? "Resume animations" : "Pause animations"}</button>
-          <a href="#home">Back to top ↑</a>
-        </div>
         <div className="wrap footer-grid">
-          <div className="footer-brand"><Image src="/logo.png" alt="BCM" width={140} height={76} /><p>Premium UK journeys, thoughtfully delivered.</p><div className="socials">{contact.facebook && <a href={contact.facebook} target="_blank" rel="noopener noreferrer" aria-label="BCM on Facebook"><Icon name="facebook" size={17} /></a>}{whatsappHref && <a href={whatsappHref} target="_blank" rel="noopener noreferrer" aria-label="BCM on WhatsApp"><Icon name="whatsapp" size={17} /></a>}</div></div>
-          <div className="footer-column"><strong>Company</strong><a href="#why-bcm">About BCM</a><a href="#services">Services</a><a href="#why-bcm">Safety</a><a href="#">Drive with us</a></div>
-          <div className="footer-column"><strong>Support</strong><a href="#">Help centre</a><a href="#">Terms of service</a><a href="#">Privacy policy</a></div>
+          <div className="footer-brand">
+            <Image src="/logo.png" alt="BCM" width={140} height={76} />
+            <p>Premium UK journeys, thoughtfully delivered.</p>
+            <div className="socials">
+              {contact.facebook ? <a href={contact.facebook} target="_blank" rel="noopener noreferrer" aria-label="BCM on Facebook"><Icon name="facebook" size={18} /></a> : <span className="social-placeholder" aria-label="BCM Facebook"><Icon name="facebook" size={18} /></span>}
+              {whatsappHref && <a href={whatsappHref} target="_blank" rel="noopener noreferrer" aria-label="BCM on WhatsApp"><Icon name="whatsapp" size={18} /></a>}
+            </div>
+          </div>
           <div className="footer-column contact-column"><strong>Get in touch</strong>{phoneHref && <a href={phoneHref}><Icon name="phone" size={16} /> {contact.mobile}</a>}<a href={`mailto:${contact.email}`}><Icon name="mail" size={16} /> {contact.email}</a><a href="#contact">Send an enquiry <Icon name="arrow" size={16} /></a></div>
         </div>
-        <div className="wrap footer-bottom"><span>© 2026 BCM. All rights reserved.</span><span>United Kingdom · English (UK) · GBP (£)</span></div>
+        <div className="wrap footer-bottom"><span>© 2026 BCM. All rights reserved.</span><a href="#home">Back to top ↑</a></div>
       </footer>
     </main>
   );
