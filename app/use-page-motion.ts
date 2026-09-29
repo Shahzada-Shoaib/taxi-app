@@ -13,7 +13,7 @@ export function usePageMotion(paused: boolean) {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const animations = new Set<Animation>();
     let frame = 0;
-    const sections = Array.from(root.querySelectorAll<HTMLElement>("#services, #why-bcm, #how-it-works, #contact"));
+    const sections = Array.from(root.querySelectorAll<HTMLElement>("#fleet, #services, #why-bcm, #how-it-works, #contact"));
     const links = Array.from(root.querySelectorAll<HTMLAnchorElement>(".nav-links a"));
 
     const updateScroll = () => {

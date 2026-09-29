@@ -1,0 +1,99 @@
+.top-contact-bar { position: fixed; inset: 0 0 auto; z-index: 105; background: var(--gold); color: var(--ink); }
+.top-contact-inner { min-height: 42px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.top-contact-inner a, .top-contact-links { display: flex; align-items: center; gap: 9px; }
+.top-contact-inner a { min-height: 42px; font-size: 12px; font-weight: 600; }
+.top-contact-inner a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.top-contact-links { gap: 24px; }
+.top-phone strong { margin-left: 7px; font-size: 14px; }
+.nav { top: 42px; background: #10100ff5; box-shadow: 0 0 0 24px #10100ff5; }
+.hero { padding-top: 134px; }
+.nav-links { gap: 25px; margin-left: 20px; }
+section[id], #book { scroll-margin-top: 150px; }
+.whatsapp-float { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 0 15px; background: #176b43; color: white; border-radius: 24px; font-size: 12px; font-weight: 650; box-shadow: 0 5px 22px #0002; }
+.whatsapp-float:hover { background: #125334; }
+.booking-toolbar .booking-hint { font-size: 11px; font-weight: 400; color: #d3ccbe; }
+.request-form { background: var(--white); color: var(--ink); padding: 30px; }
+.booking-request { box-shadow: 0 20px 50px #0002; }
+.compact-booking { background: var(--white); color: var(--ink); box-shadow: 0 20px 50px #0002; }
+.compact-booking .booking-card { box-shadow: none; }
+.compact-booking .search-button { padding: 16px; gap: 10px; }
+.compact-booking-options { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 24px; padding: 14px 20px; border-top: 1px solid var(--line); }
+.compact-booking-options label { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
+.compact-booking-options select { min-height: 38px; max-width: 100%; padding: 7px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font: inherit; }
+.compact-booking-options p { flex: 1; min-width: 200px; margin: 0; font-size: 11px; line-height: 1.7; color: var(--muted); }
+.form-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.form-grid label { display: flex; flex-direction: column; gap: 8px; min-width: 0; font-size: 12px; font-weight: 600; }
+.form-grid input, .form-grid select, .form-grid textarea { width: 100%; min-width: 0; min-height: 48px; padding: 12px; border: 1px solid #d8d1c5; border-radius: 3px; background: #faf7f1; color: var(--ink); font: inherit; font-size: 14px; font-weight: 400; }
+.form-grid textarea { resize: vertical; }
+.form-grid input::placeholder, .form-grid textarea::placeholder { color: #777065; opacity: 1; }
+.form-grid :is(input, select, textarea):focus-visible { outline: 2px solid #966700; outline-offset: 2px; }
+.form-span-two { grid-column: span 2; }
+.form-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line); }
+.form-bottom p, .form-privacy { font-size: 12px; line-height: 1.7; color: var(--muted); max-width: 580px; margin: 0; }
+.request-form .button { flex-shrink: 0; border: 0; min-height: 50px; padding: 14px 24px; font-size: 13px; font-weight: 650; }
+.form-honeypot { display: none !important; }
+.email-form-fields { border: 0; padding: 0; margin: 0; min-width: 0; }
+.email-form-fields:disabled .button { opacity: .6; cursor: default; }
+.submission-message { margin: 20px 0 0; padding: 15px; font-size: 13px; line-height: 1.7; background: #f3eddf; }
+.submission-message p { margin: 0 0 10px; }
+.submission-message a, .submission-message button { text-decoration: underline; text-underline-offset: 3px; }
+.submission-message button { border: 0; padding: 0; background: none; color: inherit; }
+.submission-error { color: #8a2929; background: #fff0ed; }
+.submission-success { color: #215e3c; background: #edf7ef; }
+.fleet-section { background: var(--white); }
+.fleet-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; margin-top: 45px; }
+.fleet-card { border: 1px solid var(--line); background: var(--paper); }
+.fleet-image { aspect-ratio: 16 / 10; overflow: hidden; background: #e5dfd2; }
+.fleet-image img { width: 100%; height: 100%; object-fit: cover; }
+.fleet-card-copy { padding: 27px; }
+.fleet-card-copy > small { color: #79601c; font-size: 10px; font-weight: 650; text-transform: uppercase; letter-spacing: .12em; }
+.fleet-card h3 { font-family: Georgia, serif; font-size: 28px; font-weight: 500; margin: 10px 0; }
+.fleet-card p { color: var(--muted); font-size: 13px; line-height: 1.8; margin: 0 0 22px; }
+.fleet-card-copy > a { display: inline-flex; align-items: center; gap: 12px; font-size: 12px; font-weight: 650; padding-bottom: 6px; border-bottom: 1px solid var(--gold); }
+.fleet-note, .photo-credits { color: var(--muted); font-size: 11px; line-height: 1.7; margin-top: 18px; }
+.photo-credits summary { cursor: pointer; width: fit-content; }
+.photo-credits > a { display: block; width: fit-content; }
+.photo-credits a { text-decoration: underline; text-underline-offset: 3px; }
+.contact-section { background: #eee7da; }
+.contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 80px; align-items: start; }
+.contact-copy > p { color: var(--muted); line-height: 1.85; font-size: 14px; margin: 25px 0 30px; }
+.contact-methods { display: grid; gap: 22px; }
+.contact-methods a { display: grid; gap: 6px; width: fit-content; max-width: 100%; overflow-wrap: anywhere; }
+.contact-methods small { font-size: 11px; color: var(--muted); }
+.contact-methods strong { font-size: 14px; font-weight: 600; }
+.contact-methods a:hover strong { text-decoration: underline; text-underline-offset: 4px; }
+.enquiry-form { border: 1px solid var(--line); }
+.enquiry-form h3 { font: 500 29px Georgia, serif; margin: 0 0 10px; }
+.form-intro { color: var(--muted); font-size: 12px; line-height: 1.7; margin: 0 0 26px; }
+.enquiry-fields { grid-template-columns: 1fr; gap: 18px; }
+.form-privacy { margin: 18px 0; }
+.contact-column { min-width: 0; }
+.contact-column a { max-width: 100%; overflow-wrap: anywhere; }
+.contact-column svg { flex-shrink: 0; }
+@media (max-width: 980px) {
+  .contact-grid { gap: 35px; grid-template-columns: 1fr 1fr; }
+  .form-grid:not(.enquiry-fields) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .form-span-two { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .hero { padding-top: 118px; }
+  .top-contact-inner { gap: 8px; }
+  .top-contact-inner a { font-size: 10px; gap: 5px; }
+  .top-phone strong { font-size: 12px; margin-left: 0; }
+  .top-contact-links { gap: 10px; }
+  .top-contact-links a:last-child { display: none; }
+  .top-contact-links svg { display: none; }
+  .top-phone > span { display: flex; flex-direction: column; }
+  section[id], #book { scroll-margin-top: 130px; }
+  .request-form { padding: 22px 18px; }
+  .compact-booking-options { padding: 12px; gap: 12px; }
+  .compact-booking-options select { font-size: 16px; }
+  .form-grid:not(.enquiry-fields) { grid-template-columns: 1fr; gap: 16px; }
+  .form-grid input, .form-grid select, .form-grid textarea { font-size: 16px; }
+  .form-bottom { flex-direction: column; align-items: stretch; gap: 18px; }
+  .fleet-grid, .contact-grid { grid-template-columns: 1fr; gap: 25px; }
+  .contact-grid { gap: 40px; }
+  .fleet-card-copy { padding: 23px; }
+  .whatsapp-float { padding: 0 12px; }
+  .whatsapp-float span { display: none; }
+}

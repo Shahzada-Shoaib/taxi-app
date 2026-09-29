@@ -5,6 +5,9 @@ import { useState } from "react";
 import RoadBanner from "./road-banner";
 import BookingForm from "./booking-form";
 import { usePageMotion } from "./use-page-motion";
+import ContactSection from "./contact-section";
+import { contact, phoneHref, whatsappHref } from "./site-config";
+import { fleet } from "./fleet";
 
 type IconName =
   | "arrow"
@@ -23,6 +26,7 @@ type IconName =
   | "shield"
   | "star"
   | "wallet"
+  | "whatsapp"
   | "x";
 
 function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
@@ -43,6 +47,7 @@ function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
     shield: <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" /><path d="m9 12 2 2 4-4" /></>,
     star: <path d="m12 2 3.1 6.3 6.9 1-5 4.8 1.2 6.9-6.2-3.2L5.8 21 7 14.1 2 9.3l6.9-1Z" />,
     wallet: <><path d="M4 5h14a2 2 0 0 1 2 2v12H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12" /><path d="M16 11h6v5h-6a2.5 2.5 0 0 1 0-5Z" /></>,
+    whatsapp: <><path d="M21 11.5a9 9 0 0 1-13.3 7.9L3 21l1.6-4.7A9 9 0 1 1 21 11.5Z" /><path d="M8 7c0 4 3 7 7 7l1-2-2-1-1 1-3-3 1-1-1-2Z" /></>,
     x: <><path d="M6 6l12 12M18 6 6 18" /></>,
   };
 
@@ -68,15 +73,22 @@ const services = [
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(0);
+  const [selectedVehicle, setSelectedVehicle] = useState("");
   const [motionPaused, setMotionPaused] = useState(false);
   const rootRef = usePageMotion(motionPaused);
 
   return (
     <main ref={rootRef} className="site-shell" data-motion-paused={motionPaused}>
       <div className="scroll-progress" aria-hidden="true" />
-      <div className="floating-controls">
-        <button type="button" className="motion-toggle" aria-pressed={motionPaused} onClick={() => setMotionPaused(!motionPaused)} aria-label={motionPaused ? "Resume animations" : "Pause animations"}><span aria-hidden="true">{motionPaused ? "▶" : "Ⅱ"}</span><span>{motionPaused ? "Motion off" : "Motion on"}</span></button>
-        <a className="back-to-top" href="#home" aria-label="Back to top">↑</a>
+      <div className="top-contact-bar">
+        <div className="wrap top-contact-inner">
+          {phoneHref ? <a className="top-phone" href={phoneHref}><Icon name="phone" size={15} /><span>Call us <strong>{contact.mobile}</strong></span></a> : <a className="top-phone" href="#contact"><Icon name="mail" size={15} /> Contact our team</a>}
+          <div className="top-contact-links">
+            {whatsappHref && <a href={whatsappHref} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" size={16} /> WhatsApp</a>}
+            {contact.facebook && <a href={contact.facebook} target="_blank" rel="noopener noreferrer"><Icon name="facebook" size={15} /> Facebook</a>}
+            <a href="#contact">Enquire now <Icon name="arrow" size={14} /></a>
+          </div>
+        </div>
       </div>
       <section className="hero" id="home">
         <nav className="nav wrap" aria-label="Main navigation">
@@ -90,6 +102,7 @@ export default function Home() {
 
           <div id="main-navigation-links" className={`nav-links ${menuOpen ? "is-open" : ""}`} onKeyDown={event => { if (event.key === "Escape") { setMenuOpen(false); rootRef.current?.querySelector<HTMLButtonElement>(".menu-button")?.focus(); } }}>
             <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+            <a href="#fleet" onClick={() => setMenuOpen(false)}>Our fleet</a>
             <a href="#why-bcm" onClick={() => setMenuOpen(false)}>Why BCM</a>
             <a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a>
             <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
@@ -104,11 +117,11 @@ export default function Home() {
         <div className="hero-grid wrap">
           <div className="hero-copy" data-reveal>
             <div className="eyebrow"><span /> UK journeys. Personal service.</div>
-            <h1>Every ride should feel <em>first class.</em></h1>
+            <h1><span>Every ride</span>{" "}<span>should feel</span>{" "}<em>first class.</em></h1>
             <p>Your everyday journey, reimagined. From local trips to airport transfers, enjoy premium taxi travel in the UK with BCM.</p>
             <div className="hero-actions">
               <a href="#book" className="button button-gold">Book your ride <Icon name="arrow" size={18} /></a>
-              <a href="#services" className="text-link"><span className="play"><Icon name="car" size={17} /></span> Explore our fleet</a>
+              <a href="#fleet" className="text-link"><span className="play"><Icon name="car" size={17} /></span> Explore our fleet</a>
             </div>
             <div className="hero-proof">
               <div className="avatars" aria-hidden="true"><span>AK</span><span>SA</span><span>MK</span></div>
@@ -130,7 +143,7 @@ export default function Home() {
           </div>
         </div>
 
-        <BookingForm services={services} selectedService={selectedService} onServiceChange={setSelectedService} />
+        <BookingForm services={services} selectedService={selectedService} onServiceChange={setSelectedService} selectedVehicle={selectedVehicle} onVehicleChange={setSelectedVehicle} />
       </section>
 
       <section className="trust-strip" aria-label="BCM achievements">
@@ -143,6 +156,23 @@ export default function Home() {
       </section>
 
       <RoadBanner />
+
+      <section className="section fleet-section" id="fleet">
+        <div className="wrap">
+          <div className="section-heading split-heading" data-reveal>
+            <div><div className="eyebrow dark"><span /> Our fleet</div><h2>A little more space.<br /><em>A lot more comfort.</em></h2></div>
+            <p>Executive cars and spacious minibuses for solo journeys, family travel and getting everyone there together.</p>
+          </div>
+          <div className="fleet-grid">
+            {fleet.map(vehicle => <article className="fleet-card" key={vehicle.name}>
+              <div className="fleet-image"><Image src={vehicle.image} alt={`${vehicle.name} exterior`} width={960} height={600} sizes="(max-width: 720px) 100vw, (max-width: 1200px) 50vw, 580px" /></div>
+              <div className="fleet-card-copy"><small>{vehicle.category}</small><h3>{vehicle.name}</h3><p>{vehicle.description}</p><a href="#book" onClick={() => setSelectedVehicle(vehicle.name)}>Request this vehicle <Icon name="arrow" size={17} /></a></div>
+            </article>)}
+          </div>
+          <p className="fleet-note">Model images shown for illustration. Please confirm vehicle availability, seating and luggage space with our team.</p>
+          <details className="photo-credits"><summary>Photo credits</summary><p>Images resized and cropped for display. Photos licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</p>{fleet.map(vehicle => <a key={vehicle.name} href={`https://commons.wikimedia.org/wiki/File:${vehicle.file}`} target="_blank" rel="noopener noreferrer">{vehicle.name} — {vehicle.author} / Wikimedia Commons</a>)}</details>
+        </div>
+      </section>
 
       <section className="section services" id="services">
         <div className="wrap">
@@ -204,7 +234,7 @@ export default function Home() {
           <div className="steps-grid" data-reveal>
             <article><span className="step-number">01</span><div className="step-icon"><Icon name="location" size={25} /></div><h3>Tell us where</h3><p>Enter your UK postcode or address and choose your destination.</p></article>
             <article><span className="step-number">02</span><div className="step-icon"><Icon name="car" size={25} /></div><h3>Choose your ride</h3><p>Select the car that suits your moment and your style.</p></article>
-            <article><span className="step-number">03</span><div className="step-icon"><Icon name="route" size={25} /></div><h3>Enjoy the journey</h3><p>Track your driver, settle in and arrive beautifully.</p></article>
+            <article><span className="step-number">03</span><div className="step-icon"><Icon name="route" size={25} /></div><h3>We’ll confirm the details</h3><p>Our team will confirm availability, your fare and your booking before you travel.</p></article>
           </div>
         </div>
       </section>
@@ -223,12 +253,18 @@ export default function Home() {
         </div>
       </section>
 
-      <footer id="contact">
+      <ContactSection />
+
+      <footer>
+        <div className="wrap footer-controls">
+          <button type="button" className="motion-toggle" aria-pressed={motionPaused} onClick={() => setMotionPaused(!motionPaused)}>{motionPaused ? "Resume animations" : "Pause animations"}</button>
+          <a href="#home">Back to top ↑</a>
+        </div>
         <div className="wrap footer-grid">
-          <div className="footer-brand"><Image src="/logo.png" alt="BCM" width={140} height={76} /><p>Premium UK journeys, thoughtfully delivered.</p><div className="socials"><a href="#" aria-label="Instagram"><Icon name="instagram" size={17} /></a><a href="#" aria-label="Facebook"><Icon name="facebook" size={17} /></a></div></div>
+          <div className="footer-brand"><Image src="/logo.png" alt="BCM" width={140} height={76} /><p>Premium UK journeys, thoughtfully delivered.</p><div className="socials">{contact.facebook && <a href={contact.facebook} target="_blank" rel="noopener noreferrer" aria-label="BCM on Facebook"><Icon name="facebook" size={17} /></a>}{whatsappHref && <a href={whatsappHref} target="_blank" rel="noopener noreferrer" aria-label="BCM on WhatsApp"><Icon name="whatsapp" size={17} /></a>}</div></div>
           <div className="footer-column"><strong>Company</strong><a href="#why-bcm">About BCM</a><a href="#services">Services</a><a href="#why-bcm">Safety</a><a href="#">Drive with us</a></div>
           <div className="footer-column"><strong>Support</strong><a href="#">Help centre</a><a href="#">Terms of service</a><a href="#">Privacy policy</a></div>
-          <div className="footer-column contact-column"><strong>Get in touch</strong><span className="contact-pending"><Icon name="phone" size={16} /> UK phone number coming soon</span><span className="contact-pending"><Icon name="mail" size={16} /> Contact email coming soon</span></div>
+          <div className="footer-column contact-column"><strong>Get in touch</strong>{phoneHref && <a href={phoneHref}><Icon name="phone" size={16} /> {contact.mobile}</a>}<a href={`mailto:${contact.email}`}><Icon name="mail" size={16} /> {contact.email}</a><a href="#contact">Send an enquiry <Icon name="arrow" size={16} /></a></div>
         </div>
         <div className="wrap footer-bottom"><span>© 2026 BCM. All rights reserved.</span><span>United Kingdom · English (UK) · GBP (£)</span></div>
       </footer>
