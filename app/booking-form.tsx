@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useState } from "react";
-import { fleet } from "./fleet";
+// import { fleet } from "./fleet";
 import { bookingWhatsappNumber } from "./site-config";
 
 type Props = {
@@ -14,7 +14,17 @@ type Props = {
 
 function todayInUK() {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
-}
+};
+
+export const fleet = [
+  { name: "Mercedes Vito" },
+  { name: "Mercedes V-Class" },
+  { name: "VW Transporter" },
+  { name: "Mercedes E-Class" },
+  { name: "Toyota Prius" },
+  { name: "Others" },
+
+];
 
 export default function BookingForm({ services, selectedService, onServiceChange, selectedVehicle, onVehicleChange }: Props) {
   const [timing, setTiming] = useState("now");
@@ -54,7 +64,7 @@ export default function BookingForm({ services, selectedService, onServiceChange
             <button type="button" className={timing === "now" ? "active" : ""} aria-pressed={timing === "now"} onClick={() => setTiming("now")}>Ride now</button>
             <button type="button" className={timing === "later" ? "active" : ""} aria-pressed={timing === "later"} onClick={() => setTiming("later")}>Schedule</button>
           </div>
-          <label className="field"><span className="location-dot" aria-hidden="true" /><span><small>Pick-up location</small><input required pattern=".*\S.*" maxLength={250} value={pickup} onChange={event => setPickup(event.target.value)} placeholder="Address or UK postcode" /></span></label>
+          <label className="field"><span className="location-dot" aria-hidden="true" /><span><small>Pick-up location</small><input required pattern=".*\S.*" maxLength={250} value={pickup} onChange={event => setPickup(event.target.value)} placeholder="pickup Address" /></span></label>
           <button type="button" className="swap-locations" aria-label="Swap pick-up and destination" onClick={() => { setPickup(destination); setDestination(pickup); }}>⇄</button>
           <label className="field"><span className="location-dot destination-dot" aria-hidden="true" /><span><small>Destination</small><input required pattern=".*\S.*" maxLength={250} value={destination} onChange={event => setDestination(event.target.value)} placeholder="Address, airport or station" /></span></label>
           <button className="search-button" type="submit">Send booking request <span aria-hidden="true">↗</span></button>

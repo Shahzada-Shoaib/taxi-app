@@ -148,7 +148,7 @@ export default function Home() {
       <section className="trust-strip" aria-label="BCM achievements">
         <div className="wrap stats-grid" data-reveal>
           <div><strong>12K+</strong><span>Happy riders</span></div>
-          <div><strong>350+</strong><span>Verified drivers</span></div>
+          <div><strong>100+</strong><span>Verified Drivers</span></div>
           <div><strong>99.2%</strong><span>On-time pick-ups</span></div>
           <div><strong>24/7</strong><span>Customer care</span></div>
         </div>
