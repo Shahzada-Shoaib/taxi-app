@@ -1,4 +1,4 @@
-import { contact } from "../../site-config";
+import { Resend } from "resend";
 
 export const runtime = "nodejs";
 
@@ -44,23 +44,28 @@ export async function POST(request: Request) {
     if (!Number.isInteger(passengers) || passengers < 1 || passengers > 50) return failure(400);
   }
 
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  const recipient = process.env.NEWSLETTER_EMAIL?.trim();
+  if (!apiKey || !recipient || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) return failure(503);
+
+  const subject = data.kind === "booking" ? "BCM — New booking request" : "BCM — New website enquiry";
+  const labels: Record<string, string> = {
+    name: "Name", email: "Email", phone: "Mobile number", message: "Message",
+    pickup: "Pick-up", destination: "Destination", service: "Service",
+    pickup_date: "Pick-up date (UK)", pickup_time: "Pick-up time (UK)",
+    passengers: "Passengers", vehicle: "Vehicle", notes: "Notes",
+  };
+
   try {
-    // Server-side fetch avoids the browser's failing HTTP/3 (QUIC) redirect.
-    const response = await fetch(`https://formsubmit.co/ajax/${contact.email}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        ...fields,
-        _subject: data.kind === "booking" ? "BCM — New booking request" : "BCM — New website enquiry",
-        _template: "table",
-        _captcha: "false",
-        _url: new URL("/", request.url).href,
-      }),
-      signal: AbortSignal.timeout(20000),
+    const resend = new Resend(apiKey);
+    const { data: sent, error } = await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL?.trim() || "BCM Enquiries <onboarding@resend.dev>",
+      to: [recipient],
+      replyTo: fields.email,
+      subject,
+      text: [subject, ...Object.entries(fields).map(([key, value]) => `${labels[key]}: ${value}`)].join("\n\n"),
     });
-    const result = await response.json();
-    if (!response.ok || (result.success !== true && result.success !== "true")) return failure(502);
-    if (/activat|confirm.*email/i.test(String(result.message || ""))) return failure(503);
+    if (error || !sent?.id) return failure(502);
     return Response.json({ success: true });
   } catch {
     return failure(502);

@@ -4,7 +4,10 @@
 .top-contact-inner a { min-height: 42px; font-size: 12px; font-weight: 600; }
 .top-contact-inner a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .top-contact-links { gap: 24px; }
-.top-phone strong { margin-left: 7px; font-size: 14px; }
+.top-phone { flex-shrink: 0; }
+.top-phone strong { margin-left: 8px; font-size: 18px; font-weight: 800; letter-spacing: .02em; white-space: nowrap; }
+.top-phone > svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--ink); stroke-width: 1.7; }
+.top-phone:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
 .nav { top: 42px; background: #10100ff5; box-shadow: 0 0 0 24px #10100ff5; }
 .hero { padding-top: 134px; }
 .nav-links { gap: 25px; margin-left: 20px; }
@@ -79,7 +82,7 @@ section[id], #book { scroll-margin-top: 150px; }
   .hero { padding-top: 118px; }
   .top-contact-inner { gap: 8px; }
   .top-contact-inner a { font-size: 10px; gap: 5px; }
-  .top-phone strong { font-size: 12px; margin-left: 0; }
+  .top-phone strong { font-size: 16px; margin-left: 0; line-height: 1.25; }
   .top-contact-links { gap: 10px; }
   .top-contact-links a:last-child { display: none; }
   .top-contact-links svg { display: none; }

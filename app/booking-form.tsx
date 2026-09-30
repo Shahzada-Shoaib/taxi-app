@@ -66,6 +66,8 @@ export default function BookingForm({ services, selectedService, onServiceChange
           <p>Opens WhatsApp with your details. Tap Send in the chat to request your ride.</p>
         </div>
       </form>
+
+      
     </div>
   );
 }

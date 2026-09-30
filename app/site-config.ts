@@ -8,7 +8,7 @@ export const contact = {
 
 export const phoneHref = contact.mobile ? `tel:${contact.mobile.replace(/[^+\d]/g, "")}` : "";
 // Temporary testing destination for booking requests only. wa.me needs digits only.
-export const bookingWhatsappNumber = "923224971299";
+export const bookingWhatsappNumber = "4407735090685";
 const whatsappNumber = (contact.whatsapp || contact.mobile).replace(/\D/g, "");
 export const whatsappHref = whatsappNumber
   ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello BCM, I'd like to enquire about a journey.")}`

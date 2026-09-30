@@ -7,7 +7,7 @@ import BookingForm from "./booking-form";
 import { usePageMotion } from "./use-page-motion";
 import ContactSection from "./contact-section";
 import { contact, phoneHref, whatsappHref } from "./site-config";
-import { fleet } from "./fleet";
+import FleetGallery from "./fleet-gallery";
 
 type IconName =
   | "arrow"
@@ -41,7 +41,7 @@ function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
     location: <><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></>,
     mail: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></>,
     menu: <><path d="M4 7h16M4 12h16M4 17h16" /></>,
-    phone: <path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 3.8 2 2 0 0 1 3.1 1.6h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L7 9.6a16 16 0 0 0 7.4 7.4l1.3-1.3a2 2 0 0 1 2.1-.5c1 .3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z" />,
+    phone: <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.35 1.9.69 2.79a2 2 0 0 1-.45 2.11L8.09 9.89a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.89.34 1.83.57 2.79.69A2 2 0 0 1 22 16.92Z" />,
     plane: <><path d="M22 2 9 15" /><path d="m22 2-7 20-4-9-9-4Z" /></>,
     route: <><circle cx="6" cy="19" r="2" /><circle cx="18" cy="5" r="2" /><path d="M8 19h3a3 3 0 0 0 3-3v-5a3 3 0 0 1 3-3h1" /></>,
     shield: <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" /><path d="m9 12 2 2 4-4" /></>,
@@ -162,14 +162,7 @@ export default function Home() {
             <div><div className="eyebrow dark"><span /> Our fleet</div><h2>A little more space.<br /><em>A lot more comfort.</em></h2></div>
             <p>Executive cars and spacious minibuses for solo journeys, family travel and getting everyone there together.</p>
           </div>
-          <div className="fleet-grid">
-            {fleet.map(vehicle => <article className="fleet-card" key={vehicle.name}>
-              <div className="fleet-image"><Image src={vehicle.image} alt={`${vehicle.name} exterior`} width={960} height={600} sizes="(max-width: 720px) 100vw, (max-width: 1200px) 50vw, 580px" /></div>
-              <div className="fleet-card-copy"><small>{vehicle.category}</small><h3>{vehicle.name}</h3><p>{vehicle.description}</p><a href="#book" onClick={() => setSelectedVehicle(vehicle.name)}>Request this vehicle <Icon name="arrow" size={17} /></a></div>
-            </article>)}
-          </div>
-          <p className="fleet-note">Model images shown for illustration. Please confirm vehicle availability, seating and luggage space with our team.</p>
-          <details className="photo-credits"><summary>Photo credits</summary><p>Images resized and cropped for display. Photos licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</p>{fleet.map(vehicle => <a key={vehicle.name} href={`https://commons.wikimedia.org/wiki/File:${vehicle.file}`} target="_blank" rel="noopener noreferrer">{vehicle.name} — {vehicle.author} / Wikimedia Commons</a>)}</details>
+          <FleetGallery />
         </div>
       </section>
 

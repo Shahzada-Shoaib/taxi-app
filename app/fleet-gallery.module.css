@@ -1,0 +1,27 @@
+.gallery { columns: 4; column-gap: 16px; margin-top: var(--content-space); }
+.tile { position: relative; display: block; width: 100%; padding: 0; margin: 0 0 16px; overflow: hidden; break-inside: avoid; border: 0; border-radius: 8px; background: #e8e0d2; cursor: zoom-in; }
+.tile img { display: block; width: 100%; height: auto; }
+.expand { position: absolute; right: 10px; bottom: 10px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #10100f99; color: white; font-size: 18px; opacity: 0; transition: opacity .2s; }
+.tile:hover .expand, .tile:focus-visible .expand { opacity: 1; }
+.tile:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.cta { display: flex; justify-content: center; margin-top: var(--group-space); }
+.viewer { position: fixed; inset: 0; margin: auto; width: min(1100px, 96vw); max-width: 96vw; max-height: 96dvh; padding: 0; border: 0; background: transparent; color: white; }
+.viewer::backdrop { background: rgb(7 7 7 / 94%); }
+:global(body):has(.viewer[open]) { overflow: hidden; }
+.viewerContent { padding: 8px 16px; }
+.toolbar, .navigation { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.toolbar { min-height: 48px; font-size: 13px; letter-spacing: .08em; }
+.viewer button { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border: 1px solid #ffffff40; border-radius: 50%; background: transparent; color: white; font-size: 22px; }
+.viewer button:hover { background: #ffffff18; }
+.viewer button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.fullPhoto { position: relative; height: min(72dvh, 820px); margin-block: 12px; }
+.fullPhoto img { object-fit: contain; }
+.navigation p { margin: 0; color: #ffffffb3; font-size: 13px; text-align: center; line-height: 1.5; }
+@media (max-width: 980px) { .gallery { columns: 3; } }
+@media (max-width: 600px) {
+  .gallery { columns: 2; column-gap: 12px; }
+  .tile { margin-bottom: 12px; border-radius: 6px; }
+  .viewerContent { padding-inline: 4px; }
+  .fullPhoto { height: 65dvh; }
+  .navigation { gap: 10px; }
+}

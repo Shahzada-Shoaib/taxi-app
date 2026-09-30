@@ -1,5 +1,11 @@
 /* Layout rules: content stays in flow; decorative elements stay in their panels. */
-:root { --header-height: 128px; --page-gutter: 24px; }
+:root {
+  --header-height: 128px;
+  --page-gutter: 24px;
+  --section-space: 96px;
+  --content-space: 48px;
+  --group-space: 32px;
+}
 .wrap { width: min(1180px, calc(100% - var(--page-gutter) * 2)); }
 .site-shell { overflow: clip; }
 .top-contact-inner { min-height: 44px; }
@@ -13,12 +19,13 @@
 .nav-links { margin-left: 0; gap: 26px; }
 .nav-links a, .nav-cta { white-space: nowrap; }
 .brand { flex-shrink: 0; }
+.nav .brand { translate: 0 5px; }
 section[id], #book { scroll-margin-top: calc(var(--header-height) + 24px); }
 .hero { min-height: 0; padding-top: var(--header-height); padding-bottom: 64px; }
 .hero::before { pointer-events: none; }
 .hero-grid {
   min-height: 0; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
-  gap: clamp(32px, 4vw, 64px); padding-block: 72px 56px;
+  gap: clamp(32px, 4vw, 64px); padding-block: 64px;
 }
 .hero-copy { width: auto; max-width: 100%; padding: 0; }
 .hero h1 { font-size: clamp(48px, 5.1vw, 72px); line-height: 1.08; margin: 24px 0; }
@@ -26,7 +33,7 @@ section[id], #book { scroll-margin-top: calc(var(--header-height) + 24px); }
 .hero h1 > span { display: block; }
 .hero-actions { flex-wrap: wrap; gap: 20px 24px; }
 .hero-actions > * { flex-shrink: 0; }
-.hero-proof { margin-top: 28px; }
+.hero-proof { margin-top: var(--group-space); }
 .hero-visual {
   display: grid; height: auto; margin: 0; place-items: center;
 }
@@ -61,12 +68,12 @@ section[id], #book { scroll-margin-top: calc(var(--header-height) + 24px); }
 .trust-strip { padding: 48px 0; }
 .stats-grid { padding-bottom: 0; border-bottom: 0; }
 .stats-grid > div, .stats-grid > div:first-child { padding: 8px 24px; }
-.section { padding-block: clamp(64px, 7vw, 100px); }
+.section { padding-block: var(--section-space); }
 .section-heading h2, .experience-copy h2, .cta-inner h2 { line-height: 1.15; }
 .split-heading { gap: 40px; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }
-.service-grid, .fleet-grid { margin-top: 40px; gap: 24px; }
+.service-grid, .fleet-grid { margin-top: var(--content-space); gap: 24px; }
 .service-card, .fleet-card, .contact-copy, .experience-copy, .quote-copy, .quote-panel { min-width: 0; }
-.service-card h3 { margin-top: 28px; }
+.service-card h3 { margin-top: var(--group-space); }
 .fleet-card { display: flex; flex-direction: column; }
 .fleet-card-copy { flex: 1; display: flex; flex-direction: column; }
 .fleet-card-copy > a { align-self: flex-start; margin-top: auto; }
@@ -76,9 +83,9 @@ section[id], #book { scroll-margin-top: calc(var(--header-height) + 24px); }
 .art-chip { position: relative; inset: auto; min-width: 0; z-index: 1; box-shadow: none; }
 .chip-safe { gap: 8px; }
 .chip-safe svg { flex-shrink: 0; }
-.steps-grid { gap: 24px; margin-top: 48px; }
+.steps-grid { gap: 24px; margin-top: var(--content-space); }
 .steps-grid article { padding-inline: 16px; }
-.quote-copy { padding: 64px 48px 64px 0; }
+.quote-copy { padding: var(--section-space) 48px var(--section-space) 0; }
 .quote-panel { padding: 28px; }
 .quote-panel-inner { padding: 28px; }
 .cta-inner > .button { flex-shrink: 0; }
@@ -121,19 +128,19 @@ section[id], #book { scroll-margin-top: calc(var(--header-height) + 24px); }
   .nav-links { top: calc(100% + 1px); margin: 0; padding: 20px var(--page-gutter); gap: 4px; max-height: calc(100dvh - var(--header-height)); overflow-y: auto; }
   .nav-links a { width: 100%; padding: 12px 0; }
   .menu-button { margin-right: 0; }
-  .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 48px; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr); gap: var(--content-space); padding-block: 48px; }
   .hero-copy { max-width: 680px; }
   .hero-visual { width: min(100%, 520px); justify-self: center; }
   .split-heading { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .split-heading > p { max-width: 580px; }
-  .experience-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .experience-grid { grid-template-columns: minmax(0, 1fr); gap: var(--content-space); }
   .experience-art { max-width: 580px; width: 100%; }
   .quote-panel-inner { padding: 20px 12px; }
   .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px; }
   .footer-brand, .contact-column { grid-column: auto; }
 }
 @media (max-width: 720px) {
-  :root { --header-height: 116px; --page-gutter: 20px; }
+  :root { --header-height: 116px; --page-gutter: 20px; --section-space: 64px; --content-space: 32px; --group-space: 24px; }
   .nav { height: 72px; }
   .top-contact-links { gap: 12px; }
   .hero { padding-bottom: 40px; }
@@ -142,7 +149,7 @@ section[id], #book { scroll-margin-top: calc(var(--header-height) + 24px); }
   .hero h1 em { padding-left: 4px; }
   .eyebrow { font-size: 10px; letter-spacing: .13em; line-height: 1.7; }
   .eyebrow span { flex-shrink: 0; width: 22px; }
-  .hero-actions { flex-direction: row; align-items: center; gap: 20px; margin-top: 28px; }
+  .hero-actions { flex-direction: row; align-items: center; gap: 20px; margin-top: var(--group-space); }
   .hero-copy > p { font-size: 15px; }
   .car-stage { aspect-ratio: 1.6; }
   .orbit-one { width: 68%; left: 16%; }
@@ -169,7 +176,7 @@ section[id], #book { scroll-margin-top: calc(var(--header-height) + 24px); }
   .stats-grid strong { font-size: 28px; }
   .stats-grid span { font-size: 10px; line-height: 1.6; }
   .section-heading h2, .experience-copy h2 { font-size: clamp(32px, 8.7vw, 42px); line-height: 1.18; }
-  .fleet-grid, .service-grid { gap: 20px; margin-top: 32px; }
+  .fleet-grid, .service-grid { gap: 24px; margin-top: var(--content-space); }
   .contact-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .experience-art { min-height: 0; padding: 20px; gap: 12px; }
   .phone-card { max-width: 100%; padding: 16px; }
@@ -178,17 +185,48 @@ section[id], #book { scroll-margin-top: calc(var(--header-height) + 24px); }
   .driver-row small { line-height: 1.6; }
   .art-chip { padding: 12px; }
   .chip-safe svg { display: none; }
-  .steps-grid { gap: 40px; }
-  .quote-copy { padding: 56px 0; }
+  .steps-grid { gap: 48px; }
+  .quote-copy { padding: var(--section-space) 0; }
   .quote-panel { min-height: 0; padding: 24px; }
   .quote-panel-inner { padding: 32px 12px; }
-  .cta-section { padding-block: 56px; }
-  .cta-inner { gap: 28px; }
-  .footer-grid { grid-template-columns: 1fr; gap: 36px; padding-bottom: 40px; }
+  .cta-section { padding-block: var(--section-space); }
+  .cta-inner { gap: var(--group-space); }
+  .footer-grid { grid-template-columns: 1fr; gap: var(--content-space); padding-bottom: var(--content-space); }
   .footer-brand, .contact-column { grid-column: auto; }
-  footer { padding-top: 40px; padding-bottom: 0; }
+  footer { padding-top: var(--section-space); padding-bottom: 0; }
   .footer-bottom { gap: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-visual *, .experience-art * { animation-play-state: paused !important; }
 }
+
+/* Shared vertical rhythm for headings, copy, actions and section boundaries. */
+.section-heading h2, .experience-copy h2 { margin-block: 16px 0; }
+.hero-actions { margin-top: var(--group-space); }
+.stats-grid span { margin-top: 8px; }
+.service-card { padding-block: var(--group-space); }
+.service-card h3 { margin-bottom: 12px; }
+.service-card p { margin-block: 0; }
+.service-fare { padding-block: 24px; }
+.fare-note { margin-top: 24px; }
+.experience-copy > p, .contact-copy > p { margin-block: 24px var(--group-space); }
+.feature-list { gap: 24px; margin-bottom: var(--group-space); }
+.step-icon { margin-block: 16px 24px; }
+.steps-grid h3 { margin-bottom: 12px; }
+.quote-copy blockquote { margin-block: var(--group-space); }
+.tiny-label { margin-bottom: 24px; }
+.quote-panel a { margin-top: var(--group-space); }
+.cta-section { padding-block: var(--section-space); }
+.cta-inner h2 { margin-block: 16px 24px; }
+.request-form { padding-block: var(--group-space); }
+.enquiry-form h3 { margin-bottom: 12px; }
+.form-intro { margin-bottom: 24px; }
+.enquiry-fields { gap: 24px; }
+.form-privacy { margin-block: 24px; }
+.contact-methods { gap: 24px; }
+.contact-methods a { gap: 8px; }
+.submission-message { margin-top: 24px; padding-block: 16px; }
+footer { padding-top: var(--section-space); }
+.footer-grid { padding-bottom: var(--content-space); }
+.footer-column strong { margin-bottom: 8px; }
+.footer-bottom { padding-block: 24px; }
