@@ -83,6 +83,12 @@ h1 em, h2 em, .quote-panel strong em { color: var(--gold-light); font-family: Ge
 .field span:last-child { min-width: 0; width: 100%; }.field small { display: block; color: #9b9488; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .11em; margin-bottom: 5px; }
 .field input { border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 13px; width: 100%; min-width: 0; }.field input::placeholder { color: #383630; opacity: 1; }
 .field-divider { width: 1px; height: 42px; background: var(--line); }
+.postcode-input { display: block; position: relative; }
+.postcode-suggestions { display: block; position: absolute; top: calc(100% + 10px); left: 0; right: 0; z-index: 30; margin: 0; padding: 5px; color: var(--ink); background: var(--white); border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+.postcode-option, .postcode-status { display: block; padding: 10px; font-size: 12px; line-height: 1.4; border-radius: 3px; }
+.postcode-option { cursor: pointer; }
+.postcode-status { color: #70695f; }
+.postcode-option:hover, .postcode-option[aria-selected="true"] { background: #f5f0e7; }
 .schedule-field { grid-column: 2 / 5; margin-top: 12px; }
 .booking-card:has(.schedule-field) { grid-template-rows: auto auto; }
 .search-button { align-self: stretch; min-width: 155px; color: var(--ink); background: var(--gold); border: 0; font-size: 12px; font-weight: 750; display: flex; align-items: center; justify-content: center; gap: 8px; }
@@ -133,7 +139,7 @@ h1 em, h2 em, .quote-panel strong em { color: var(--gold-light); font-family: Ge
 .button-dark { background: var(--ink); color: var(--gold-light); }
 
 .steps { background: var(--white); }.centered { text-align: center; }.centered .eyebrow { justify-content: center; }
-.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 70px; position: relative; }.steps-grid::before { content: ""; position: absolute; top: 45px; left: 16%; right: 16%; border-top: 1px dashed rgba(var(--gold-rgb),.35); }
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 70px; position: relative; }.steps-grid::before { content: ""; position: absolute; top: 45px; left: 12.5%; right: 12.5%; border-top: 1px dashed rgba(var(--gold-rgb),.35); }
 .steps-grid article { text-align: center; position: relative; padding: 0 40px; }.step-number { color: var(--gold); font-size: 9px; letter-spacing: .14em; }.step-icon { width: 68px; height: 68px; display: grid; place-items: center; margin: 14px auto 25px; color: var(--gold); background: var(--paper); border: 1px solid rgba(var(--gold-rgb),.18); transform: rotate(45deg); position: relative; z-index: 2; }.step-icon svg { transform: rotate(-45deg); }.steps-grid h3 { font-family: Georgia, serif; font-size: 21px; font-weight: 500; margin: 0 0 10px; }.steps-grid p { color: var(--muted); font-size: 12px; line-height: 1.7; margin: auto; max-width: 240px; }
 
 .quote-section { background: #171715; color: var(--white); }.quote-grid { min-height: 540px; display: grid; grid-template-columns: 1.1fr .9fr; }.quote-copy { padding: 88px 90px 76px 0; }.quote-mark { font-family: Georgia, serif; font-size: 88px; line-height: .6; color: var(--gold); }.quote-copy blockquote { font-family: Georgia, serif; font-size: clamp(28px,3vw,41px); line-height: 1.35; margin: 30px 0 38px; color: #f2ede3; }.quote-author { display: flex; align-items: center; gap: 13px; }.quote-author > span { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; color: #211c10; background: var(--gold); font-size: 11px; font-weight: 800; }.quote-author strong,.quote-author small { display: block; }.quote-author strong { font-size: 11px; }.quote-author small { font-size: 9px; margin-top: 4px; color: rgba(255,255,255,.42); }
@@ -179,6 +185,29 @@ footer { background: #080808; color: white; padding-top: 75px; }.footer-grid { d
 }
 .floating-whatsapp:hover { background: #1ebe5d; }
 .floating-whatsapp:focus-visible { outline: 3px solid #075e54; outline-offset: 4px; }
+
+.payment-section { background: var(--paper-deep); border-block: 1px solid rgba(18,18,16,.08); }
+.payment-inner { display: grid; grid-template-columns: 1fr .9fr; align-items: center; gap: 60px; padding-block: 54px; }
+.payment-copy h2 { margin: 15px 0 12px; font-family: Georgia, "Times New Roman", serif; font-size: 38px; line-height: 1.12; font-weight: 500; }
+.payment-copy h2 em { color: #936a00; font-weight: 400; }
+.payment-copy p { max-width: 430px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.payment-art { width: min(420px, 100%); min-height: 190px; position: relative; margin-inline: auto; }
+.payment-card { position: absolute; width: min(330px, 78vw); aspect-ratio: 1.586; padding: 22px; border-radius: 8px; box-shadow: 0 18px 36px rgba(24,21,14,.18); }
+.payment-card-back { top: 18px; left: 50%; display: flex; align-items: flex-end; justify-content: space-between; overflow: hidden; color: rgba(13,13,13,.76); background: linear-gradient(135deg, #d9a315, #febb0a 60%, #ffd85f); transform: translateX(-42%) rotate(8deg); }
+.payment-card-back::before { content: ""; position: absolute; width: 130px; height: 130px; right: -36px; top: -48px; border: 1px solid rgba(13,13,13,.16); border-radius: 50%; box-shadow: 0 0 0 12px rgba(13,13,13,.04), 0 0 0 24px rgba(13,13,13,.04); }
+.payment-card-label, .payment-card-bottom { font-size: 8px; font-weight: 700; letter-spacing: .12em; }
+.payment-card-mark { font-size: 15px; font-weight: 800; letter-spacing: .06em; }
+.payment-card-front { top: 8px; left: 50%; display: flex; flex-direction: column; justify-content: space-between; color: #fffdf8; background: linear-gradient(135deg, #292820, #11110f 74%); border: 1px solid rgba(var(--gold-rgb),.36); transform: translateX(-60%) rotate(-7deg); }
+.payment-card-top, .payment-card-bottom { display: flex; align-items: center; justify-content: space-between; }
+.payment-card-wave { color: var(--gold); font-size: 14px; letter-spacing: -4px; transform: rotate(90deg); }
+.payment-card-chip { width: 34px; height: 25px; border: 1px solid rgba(var(--gold-rgb),.65); border-radius: 5px; background: linear-gradient(90deg, transparent 48%, rgba(var(--gold-rgb),.45) 49% 51%, transparent 52%), linear-gradient(0deg, transparent 48%, rgba(var(--gold-rgb),.45) 49% 51%, transparent 52%); }
+.payment-card-bottom { color: rgba(255,253,248,.66); }
+
+@media (max-width: 720px) {
+  .payment-inner { grid-template-columns: 1fr; gap: 16px; padding-block: 42px; }
+  .payment-copy h2 { font-size: 34px; }
+  .payment-art { min-height: 190px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

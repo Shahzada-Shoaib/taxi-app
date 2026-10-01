@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useState } from "react";
+import PostcodeInput from "./postcode-input";
 // import { fleet } from "./fleet";
 import { bookingWhatsappNumber } from "./site-config";
 
@@ -64,9 +65,9 @@ export default function BookingForm({ services, selectedService, onServiceChange
             <button type="button" className={timing === "now" ? "active" : ""} aria-pressed={timing === "now"} onClick={() => setTiming("now")}>Ride now</button>
             <button type="button" className={timing === "later" ? "active" : ""} aria-pressed={timing === "later"} onClick={() => setTiming("later")}>Schedule</button>
           </div>
-          <label className="field"><span className="location-dot" aria-hidden="true" /><span><small>Pick-up location</small><input required pattern=".*\S.*" maxLength={250} value={pickup} onChange={event => setPickup(event.target.value)} placeholder="pickup Address" /></span></label>
+          <label className="field"><span className="location-dot" aria-hidden="true" /><span><small>Pick-up location</small><PostcodeInput value={pickup} onChange={setPickup} placeholder="UK postcode or address" /></span></label>
           <button type="button" className="swap-locations" aria-label="Swap pick-up and destination" onClick={() => { setPickup(destination); setDestination(pickup); }}>⇄</button>
-          <label className="field"><span className="location-dot destination-dot" aria-hidden="true" /><span><small>Destination</small><input required pattern=".*\S.*" maxLength={250} value={destination} onChange={event => setDestination(event.target.value)} placeholder="Address, airport or station" /></span></label>
+          <label className="field"><span className="location-dot destination-dot" aria-hidden="true" /><span><small>Destination</small><PostcodeInput value={destination} onChange={setDestination} placeholder="UK postcode, address or airport" /></span></label>
           <button className="search-button" type="submit">Send booking request <span aria-hidden="true">↗</span></button>
           {timing === "later" && <label className="field schedule-field"><span><small>Pick-up date & time (UK local time)</small><input type="datetime-local" required value={date} onChange={event => setDate(event.target.value)} onFocus={event => { event.currentTarget.min = `${todayInUK()}T00:00`; }} /></span></label>}
         </div>

@@ -227,6 +227,7 @@ export default function Home() {
             <article><span className="step-number">01</span><div className="step-icon"><Icon name="location" size={25} /></div><h3>Tell us where</h3><p>Enter your UK postcode or address and choose your destination.</p></article>
             <article><span className="step-number">02</span><div className="step-icon"><Icon name="car" size={25} /></div><h3>Choose your ride</h3><p>Select the car that suits your moment and your style.</p></article>
             <article><span className="step-number">03</span><div className="step-icon"><Icon name="route" size={25} /></div><h3>We’ll confirm the details</h3><p>Our team will confirm availability, your fare and your booking before you travel.</p></article>
+            <article><span className="step-number">04</span><div className="step-icon"><Icon name="wallet" size={25} /></div><h3>Pay cashless</h3><p>Enjoy convenient cashless payment for a smooth finish to your journey.</p></article>
           </div>
         </div>
       </section>
@@ -246,6 +247,27 @@ export default function Home() {
       </section>
 
       <ContactSection />
+
+      <section className="payment-section" aria-labelledby="payment-heading">
+        <div className="wrap payment-inner">
+          <div className="payment-copy">
+            <div className="eyebrow dark"><span /> Simple, cashless journeys</div>
+            <h2 id="payment-heading">A smoother way<br /><em>to pay.</em></h2>
+            <p>Keep your journey effortless right to the very last detail with cashless payment.</p>
+          </div>
+          <div className="payment-art" aria-hidden="true">
+            <div className="payment-card payment-card-back">
+              <span className="payment-card-label">CONTACTLESS</span>
+              <span className="payment-card-mark">BCM</span>
+            </div>
+            <div className="payment-card payment-card-front">
+              <div className="payment-card-top"><span className="payment-card-mark">BCM</span><span className="payment-card-wave">)))</span></div>
+              <span className="payment-card-chip" />
+              <div className="payment-card-bottom"><span>PREMIUM JOURNEYS</span><span>CASHLESS</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <footer>
         <div className="wrap footer-grid">

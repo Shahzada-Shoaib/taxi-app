@@ -8,17 +8,12 @@ import styles from "./fleet-gallery.module.css";
 const descriptions = [
   "Black executive saloon outside a hotel",
   "Black Mercedes minibus at Birmingham Airport",
-  "Silver minibus outside a hotel at dusk",
   "Black executive saloon outside a timber-framed building",
   "Black minibus viewed from the front",
   "Silver executive saloon at a country estate entrance",
   "Silver Mercedes saloon outside a country house",
-  "Black minibus viewed from the rear",
   "Silver executive saloon outside a covered entrance",
   "Silver Mercedes minibus on a sunny day",
-  "Silver minibus at an airport terminal",
-  "Silver minibus viewed from the rear at dusk",
-  "Silver minibus showing its side and rear",
   "Black minibus at Heathrow Terminal 5",
 ];
 
@@ -62,7 +57,6 @@ export default function FleetGallery() {
         </div>
         <div className={styles.navigation}>
           <button type="button" onClick={() => move(-1)} aria-label="Previous photo">←</button>
-          <p>{descriptions[active]}</p>
           <button type="button" onClick={() => move(1)} aria-label="Next photo">→</button>
         </div>
       </div>
