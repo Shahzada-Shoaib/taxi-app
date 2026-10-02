@@ -27,7 +27,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en-GB"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      {/* Browser extensions can inject body attributes before React hydrates. */}
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         {children}
         {whatsappHref && <a className="floating-whatsapp" href={whatsappHref} target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp" title="Chat on WhatsApp">
           <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

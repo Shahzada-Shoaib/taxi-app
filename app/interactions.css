@@ -35,8 +35,8 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 @keyframes soft-pulse { 0%, 100% { opacity: .4; scale: .98; } 50% { opacity: .85; scale: 1.04; } }
 @keyframes map-drive { 0%, 100% { translate: -26px 26px; } 50% { translate: 24px -24px; } }
 .car-stage img { animation: gentle-float 7s ease-in-out infinite; }
-.visual-badge-top, .chip-price { animation: gentle-float 5.5s ease-in-out infinite; }
-.visual-badge-bottom, .chip-safe { animation: gentle-float 6.5s ease-in-out -2s infinite; }
+.visual-badge-top, .visual-badge-payment, .chip-price { animation: gentle-float 5.5s ease-in-out infinite; }
+.visual-badge-bottom, .visual-badge-phone, .chip-safe { animation: gentle-float 6.5s ease-in-out -2s infinite; }
 .stage-shine { animation: soft-pulse 7s ease-in-out infinite; }
 .phone-card { animation: gentle-float 8s ease-in-out infinite; }
 .mini-car { animation: map-drive 7s ease-in-out infinite; }

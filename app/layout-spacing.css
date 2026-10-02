@@ -51,6 +51,10 @@ section[id], #book { scroll-margin-top: calc(var(--header-height) + 24px); }
 .visual-badge > span { flex-shrink: 0; }
 .visual-badge-top { top: 24px; right: 0; }
 .visual-badge-bottom { left: 0; bottom: 24px; }
+.visual-badge-phone { left: 0; top: 24px; color: inherit; text-decoration: none; }
+.visual-badge-payment { right: 0; bottom: 24px; }
+.visual-badge-phone:hover { border-color: var(--gold-light); }
+.visual-badge-phone:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
 .booking-wrap { position: relative; inset: auto; transform: none; margin-block: 0; }
 .booking-toolbar { padding: 16px 20px; gap: 16px; }
 .compact-booking { box-shadow: 0 12px 32px #0002; }
@@ -154,10 +158,14 @@ section[id], #book { scroll-margin-top: calc(var(--header-height) + 24px); }
   .car-stage { aspect-ratio: 1.6; }
   .orbit-one { width: 68%; left: 16%; }
   .orbit-two { width: 50%; left: 25%; }
-  .visual-badge { width: 152px; min-width: 0; max-width: calc(100% - 16px); padding: 10px; gap: 8px; }
+  .hero-visual { padding-block: 72px; }
+  .visual-badge { width: 170px; min-width: 0; max-width: calc(50% - 4px); padding: 10px; gap: 8px; }
+  .visual-badge > div { min-width: 0; overflow-wrap: anywhere; }
   .visual-badge > span { width: 28px; height: 28px; }
   .visual-badge-top { top: 8px; right: 0; }
   .visual-badge-bottom { left: 0; bottom: 8px; }
+  .visual-badge-phone { left: 0; top: 8px; }
+  .visual-badge-payment { right: 0; bottom: 8px; }
   .booking-toolbar { flex-direction: column; align-items: stretch; padding: 16px; }
   .booking-toolbar label { justify-content: space-between; }
   .booking-toolbar select { min-width: 0; width: 65%; font-size: 14px; }

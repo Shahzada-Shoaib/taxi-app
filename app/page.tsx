@@ -13,6 +13,7 @@ type IconName =
   | "arrow"
   | "calendar"
   | "car"
+  | "card"
   | "check"
   | "clock"
   | "facebook"
@@ -34,6 +35,7 @@ function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
     arrow: <><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></>,
     calendar: <><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M16 3v4M8 3v4M3 10h18" /></>,
     car: <><path d="m5 17-2-1v-4l2-1 2-5h10l2 5 2 1v4l-2 1" /><path d="M5 17v2h3v-2M16 17v2h3v-2M6.5 11h11M7 14h.01M17 14h.01" /></>,
+    card: <><rect x="2" y="4" width="20" height="16" rx="3" /><path d="M2 9h20M6 15h4" /></>,
     check: <path d="m5 12 4 4L19 6" />,
     clock: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
     facebook: <path d="M14 8h3V4h-3c-3 0-5 2-5 5v3H6v4h3v5h4v-5h3l1-4h-4V9c0-.7.3-1 1-1Z" />,
@@ -66,8 +68,8 @@ const pounds = new Intl.NumberFormat("en-GB", {
 // Illustrative design prices, pending the operator's confirmed UK tariff.
 const services = [
   { icon: "car" as const, number: "01", title: "Local journeys", text: "From your daily commute to the railway station, travel in comfort with a professional driver.", exampleFare: 18, unit: "/ journey" },
-  { icon: "plane" as const, number: "02", title: "Airport transfers", text: "Start or finish your holiday with a comfortable transfer between your door and the terminal.", exampleFare: 65, unit: "/ transfer" },
-  { icon: "clock" as const, number: "03", title: "Chauffeur hire", text: "An executive saloon and chauffeur for business meetings, special occasions or a day in town.", exampleFare: 45, unit: "/ hour" },
+  { icon: "plane" as const, number: "02", title: "Airport transfers", text: "Start or finish your holiday with a comfortable transfer between your door and the terminal.", exampleFare: 45, unit: "/ transfer" },
+  { icon: "clock" as const, number: "03", title: "Chauffeur hire", text: "An executive saloon and chauffeur for business meetings, special occasions or a day in town.", exampleFare: 35, unit: "/ hour" },
 ];
 
 export default function Home() {
@@ -117,7 +119,7 @@ export default function Home() {
           <div className="hero-copy" data-reveal>
             <div className="eyebrow"><span /> UK journeys. Personal service.</div>
             <h1><span>Every ride</span>{" "}<span>should feel</span>{" "}<em>first class.</em></h1>
-            <p>Your everyday journey, reimagined. From local trips to airport transfers, enjoy premium taxi travel in the UK with BCM.</p>
+            <p>Your everyday journey, reimagined. From local trips to airport transfers, enjoy premium taxi travel in the UK with BCM. Card Payments are Accepted.</p>
             <div className="hero-actions">
               <a href="#book" className="button button-gold">Book your ride <Icon name="arrow" size={18} /></a>
               <a href="#fleet" className="text-link"><span className="play"><Icon name="car" size={17} /></span> Explore our fleet</a>
@@ -133,6 +135,8 @@ export default function Home() {
             <div className="orbit orbit-two" />
             <div className="visual-badge visual-badge-top"><span><Icon name="shield" size={17} /></span><div><strong>Verified drivers</strong><small>Safe on every trip</small></div></div>
             <div className="visual-badge visual-badge-bottom"><span><Icon name="clock" size={17} /></span><div><strong>3 min away</strong><small>Your ride is nearby</small></div></div>
+            {phoneHref && <a className="visual-badge visual-badge-phone" href={phoneHref}><span><Icon name="phone" size={17} /></span><div><strong>{contact.mobile}</strong><small>Call to book your ride</small></div></a>}
+            <div className="visual-badge visual-badge-payment"><span><Icon name="card" size={17} /></span><div><strong>Payments with cards</strong><small>Card payments accepted</small></div></div>
             <div className="car-stage">
               <div className="stage-shine" />
               <Image src="/logo.png" alt="BCM luxury car" width={677} height={369} priority />
@@ -148,7 +152,7 @@ export default function Home() {
       <section className="trust-strip" aria-label="BCM achievements">
         <div className="wrap stats-grid" data-reveal>
           <div><strong>12K+</strong><span>Happy riders</span></div>
-          <div><strong>100+</strong><span>Verified Drivers</span></div>
+          <div><strong>100%</strong><span>Verified Drivers</span></div>
           <div><strong>99.2%</strong><span>On-time pick-ups</span></div>
           <div><strong>24/7</strong><span>Customer care</span></div>
         </div>

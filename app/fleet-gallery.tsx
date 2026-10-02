@@ -17,6 +17,10 @@ const descriptions = [
   "Black minibus at Heathrow Terminal 5",
 ];
 
+function photoDescription(index: number) {
+  return descriptions[index] ?? `BCM fleet vehicle photo ${index + 1}`;
+}
+
 export default function FleetGallery() {
   const [active, setActive] = useState(0);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -33,8 +37,8 @@ export default function FleetGallery() {
 
   return <>
     <div className={styles.gallery} aria-label="Our fleet photo gallery">
-      {photos.map((item, index) => <button key={item.src} type="button" className={styles.tile} onClick={() => open(index)} aria-label={`Enlarge photo ${index + 1}: ${descriptions[index]}`} aria-haspopup="dialog">
-        <Image src={item.src} alt={descriptions[index]} width={item.width} height={item.height} sizes="(max-width: 600px) 50vw, (max-width: 980px) 33vw, 295px" />
+      {photos.map((item, index) => <button key={item.src} type="button" className={styles.tile} onClick={() => open(index)} aria-label={`Enlarge photo ${index + 1}: ${photoDescription(index)}`} aria-haspopup="dialog">
+        <Image src={item.src} alt={photoDescription(index)} width={item.width} height={item.height} sizes="(max-width: 600px) 50vw, (max-width: 980px) 33vw, 295px" />
         <span className={styles.expand} aria-hidden="true">↗</span>
       </button>)}
     </div>
@@ -53,7 +57,7 @@ export default function FleetGallery() {
           <button type="button" onClick={() => dialog.current?.close()} aria-label="Close photo viewer">✕</button>
         </div>
         <div className={styles.fullPhoto}>
-          <Image src={photo.src} alt={descriptions[active]} fill sizes="(max-width: 1100px) 94vw, 1050px" />
+          <Image src={photo.src} alt={photoDescription(active)} fill sizes="(max-width: 1100px) 94vw, 1050px" />
         </div>
         <div className={styles.navigation}>
           <button type="button" onClick={() => move(-1)} aria-label="Previous photo">←</button>

@@ -2,8 +2,8 @@
 export const contact = {
   email: "blackcountryminibus@gmail.com",
   mobile: "+44 7735 090685",
-  whatsapp: "", // International format, if different from mobile.
-  facebook: "", // Full Facebook page URL.
+  whatsapp: "wa.me/+4407735090685", // International format, if different from mobile.
+  facebook: "https://www.facebook.com/share/1BX7vSs9Kc/?mibextid=wwXIfr", // Full Facebook page URL.
 };
 
 export const phoneHref = contact.mobile ? `tel:${contact.mobile.replace(/[^+\d]/g, "")}` : "";
