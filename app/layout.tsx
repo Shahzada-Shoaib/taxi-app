@@ -19,6 +19,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "BCM — Premium UK Taxi & Airport Transfers",
   description: "Discover premium UK taxi journeys, airport transfers and chauffeur hire with BCM. Plan your trip using a UK postcode and view example fares in GBP.",
+  verification: {
+    google: "Thw3VeZ66e_y7Ik2jHy_EZvGEMNjhB2TGEt7xdnlBIA",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
